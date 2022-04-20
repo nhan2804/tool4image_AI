@@ -13,8 +13,10 @@ for gpu in tf.config.experimental.list_physical_devices('GPU'):
 
 train_datagen = ImageDataGenerator(rescale=1.0/255.0,
     width_shift_range=0.1, height_shift_range=0.1, horizontal_flip=True)
+
 val_datagen = ImageDataGenerator(rescale=1.0/255.0)
 test_datagen = ImageDataGenerator(rescale=1.0/255.0)
+
 # prepare iterators
 train_it = train_datagen.flow_from_directory('train/train/',
     class_mode='binary', batch_size=20, target_size=(224, 224))
