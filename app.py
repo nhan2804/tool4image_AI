@@ -59,9 +59,14 @@ def predict_label(img_path):
 def index():
     return "<h1>Tool 4 Image</h1>"
 
-def uploadFileImage(fileUpload):
-    fileUpload.save(os.path.join("uploads", fileUpload.filename))
-    image_file = cv2.imread(os.path.join("uploads", fileUpload.filename))
+def uploadFileImage(fileUpload,req):
+    last_img = request.form.get('last_img',None)
+    if last_img:
+        print(last_img)
+        image_file = cv2.imread(os.path.join("assets", last_img))
+    else:
+        fileUpload.save(os.path.join("uploads", fileUpload.filename))
+        image_file = cv2.imread(os.path.join("uploads", fileUpload.filename))
     return image_file
 def getPathFile(file,req):
     filename = 'assets/' + 'savedImage' + str(random.randint(0, 9999)) + '.jpg'
@@ -79,7 +84,7 @@ def duo_tone():
     imageFile = request.files.get('file', '')
     exp = request.form['exponent']
     # switch = request.form['s1']
-    img = uploadFileImage(imageFile)
+    img = uploadFileImage(imageFile,request)
     exp = int(exp)
 
     # cv2.createTrackbar('exponent', 'image', 0, 10, nothing)
@@ -113,7 +118,7 @@ def duo_tone():
 def brightness():
     imageFile = request.files.get('file', '')
     val = request.form['val']
-    img = uploadFileImage(imageFile)
+    img = uploadFileImage(imageFile,request)
     val=int(val)
     # cv2.namedWindow('image')
     # cv2.createTrackbar('val', 'image', 100, 150)
@@ -139,7 +144,7 @@ def emboss():
     imageFile = request.files.get('file', '')
     size = request.form['size']
     switch = request.form['switch']
-    img = uploadFileImage(imageFile)
+    img = uploadFileImage(imageFile,request)
     size = int(size)
 
     # switch = '0 : BL n1 : BR n2 : TR n3 : BR'
@@ -201,13 +206,12 @@ def classification():
 
 @app.route('/tv-60', methods=['POST'])
 def apiTV60():
-    fileUpload = request.files.get('file', '')
-    fileUpload.save(os.path.join("uploads", fileUpload.filename))
-    image_file = cv2.imread(os.path.join("uploads",fileUpload.filename))
+    imageFile = request.files.get('file', '')
+    img = uploadFileImage(imageFile, request)
     # data = request.get_json()
     thresh=request.form['thresh']
     val= request.form['val']
-    rs_img_gray = tv_60(image_file, val, thresh)
+    rs_img_gray = tv_60(img, val, thresh)
 
     filename = 'assets/' + 'savedImage' + str(random.randint(0, 9999)) + '.jpg'
     cv2.imwrite(filename, rs_img_gray)
@@ -218,7 +222,7 @@ def apiTV60():
 @app.route('/sepia', methods=['POST'])
 def sepia():
     imageFile = request.files.get('file', '')
-    img = uploadFileImage(imageFile)
+    img = uploadFileImage(imageFile,request)
     res = img.copy()
     res = cv2.cvtColor(res, cv2.COLOR_BGR2RGB) # converting to RGB as sepia matrix is for RGB
     res = np.array(res, dtype=np.float64)
