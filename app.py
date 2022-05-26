@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, url_for, Response
 import cv2
 import numpy as np
-from keras.models import load_model
-from keras.preprocessing import image
+# from keras.models import load_model
+# from keras.preprocessing import image
 from PIL import Image
 import pytesseract
 import os
@@ -217,7 +217,7 @@ def apiTV60():
     cv2.imwrite(filename, rs_img_gray)
     path = request.url_root + filename
     return path
-    # return str(p)
+
 
 @app.route('/sepia', methods=['POST'])
 def sepia():
@@ -232,6 +232,14 @@ def sepia():
     res[np.where(res > 255)] = 255 # clipping values greater than 255 to 255
     res = np.array(res, dtype=np.uint8)
     res = cv2.cvtColor(res, cv2.COLOR_RGB2BGR)
+    return getPathFile(res,request)
+
+@app.route('/negative', methods=['POST'])
+def negative():
+    imageFile = request.files.get('file', '')
+    img = uploadFileImage(imageFile,request)
+    res = img.copy()
+    res = ~res
     return getPathFile(res,request)
 
 
