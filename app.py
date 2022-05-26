@@ -4,12 +4,12 @@ import numpy as np
 from keras.models import load_model
 from keras.preprocessing import image
 from PIL import Image
-# import pytesseract
+import pytesseract
 import os
 import random
 from flask_cors import CORS
 
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 app = Flask(__name__, static_folder='assets')
 CORS(app)
 dic = {1: 'dog', 0: 'cat'}
@@ -46,13 +46,13 @@ def tv_60(img,val,thresh):
     return gray;
 
 
-# model = load_model('my_model.h5')
+model = load_model('my_model.h5')
 def predict_label(img_path):
         i = image.load_img(img_path, target_size=(224, 224))
         i = image.img_to_array(i)
         i = i.reshape(1, 224, 224, 3)
-        # p = model.predict(i)
-        # return (dic[int(p[0][0])])
+        p = model.predict(i)
+        return (dic[int(p[0][0])])
 
 # model.predict(cv2.imread("train/test"));
 @app.route('/')
@@ -239,12 +239,12 @@ def sepia():
 def upload():
     imageFile = request.files.get('file','')
     image = Image.open(imageFile)
-    # text = pytesseract.image_to_string(image)
-    # f = open("sample.txt", "a")
-    # f.truncate(0)
-    # f.write(text)
-    # f.close()
-    # return text
+    text = pytesseract.image_to_string(image)
+    f = open("sample.txt", "a")
+    f.truncate(0)
+    f.write(text)
+    f.close()
+    return text
 
 if __name__ == "__main__":
     app.run(debug=True)

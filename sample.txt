@@ -1,42 +1,6 @@
- 
+  
 
-References [edit]
-
- 
-
-1. * http:imwww.songho.ca/dsp/convolution/convolution2d_example. html
-* Ludwig, Jamie (n.d.). Image Convolution 3 (PDF). Portland State University.
-
-* Lecarme, Olivier; Delvare, Karine (January 2013). The Book of GIMP: A Complete Guide to Nearly Everything. No Starch Press. p. 429. ISBN 978-1593273835,
-Gumster, Jason van; Shimonski, Robert (March 2012). GIMP Bible. Wiley. pp. 438-442. ISBN 978-0470523971
-
-Shapiro, Linda G.; Stockman, George C. (February 2001). Computer Vision. Prentice Hall. pp. 53-4. ISBN 978-0130307965.
-
-See also [edit]
-
- 
-
-‘© Multidimensional discrete convolution
-
-External links {edit}
-
- 
-
-Implementing 2d convolution on FPGA
-vimage Programming Guide: Performing Convolution Operations
-
-Image Processing using 2D-Convolution®?
-
-GNU Image Manipulation Program - User Manual - 8.2. Convolution Matrix?
-GLSL Demonstration of 3x3 Convolution Kernels?
-
-Complete C++ open source project #
-
- 
-
-Categories: Image processing | Feature detection (computer vision)
-
- 
-
- 
+TOM NIAI CUA BAUGH GA
+4 gl
+(TONG 3+4)46
 
